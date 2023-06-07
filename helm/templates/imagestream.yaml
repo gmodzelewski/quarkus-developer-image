@@ -1,0 +1,16 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: developer-image
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - name: latest
+    from:
+      kind: DockerImage
+      name: quay.io/devfile/base-developer-image:ubi9-latest
+      # quay.io/devfile/base-developer-image:ubi9-latest
+      # quay.io/devfile/universal-developer-image:ubi9-latest
+    referencePolicy:
+      type: Source

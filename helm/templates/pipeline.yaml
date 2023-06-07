@@ -71,83 +71,41 @@ spec:
     ##------------------------------------------------------------------
     # rhacs checks
     ##------------------------------------------------------------------
-  #   - name: git-clone-helm
-  #     params:
-  #       - name: url
-  #         value: "{{ include "app.helmGit" . }}"
-  #       - name: revision
-  #         value: main
-  #       - name: submodules
-  #         value: 'true'
-  #       - name: depth
-  #         value: '1'
-  #       - name: sslVerify
-  #         value: 'true'
-  #       - name: deleteExisting
-  #         value: 'true'
-  #       - name: verbose
-  #         value: 'true'
-  #       - name: gitInitImage
-  #         value: >-
-  #           registry.redhat.io/openshift-pipelines/pipelines-git-init-rhel8@sha256:cadf614a6044ee37397de3abe7674827ecab225e7fac9fb123eff5473e2c4003
-  #       - name: userHome
-  #         value: /tekton/home
-  #     taskRef:
-  #       kind: ClusterTask
-  #       name: git-clone
-  #     workspaces:
-  #       - name: output
-  #         workspace: source-helm
-  #   - name: kube-linter
-  #     runAfter:
-  #     - git-clone-helm
-  #     taskRef:
-  #       name: kube-linter
-  #     workspaces:
-  #       - name: source
-  #         workspace: source-helm
-  #     params:
-  #       - name: manifest
-  #         value: .
-  #       - name: default_option
-  #         value: do-not-auto-add-defaults # or add-all-built-in
-  #       - name: includelist
-  #         value: "no-extensions-v1beta,default-service-account,no-readiness-probe"
-  #   - name: image-scan
-  #     taskRef:
-  #       name: rhacs-image-scan
-  #       kind: Task
-  #     params:
-  #     - name: image
-  #       value: "image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}@$(tasks.build-image.results.IMAGE_DIGEST)"
-  #     - name: rox_api_token
-  #       value: {{ include "app.fullname" . }}-pipeline-config
-  #     - name: rox_central_endpoint
-  #       value: {{ include "app.fullname" . }}-pipeline-config
-  #     - name: output_format
-  #       value: table
-  #     - name: insecure-skip-tls-verify
-  #       value: true
-  #     runAfter:
-  #       - build-image
-  #   - name: image-check
-  #     taskRef:
-  #       name: rhacs-image-check
-  #       kind: Task
-  #     params:
-  #     - name: image
-  #       value: "image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}@$(tasks.build-image.results.IMAGE_DIGEST)"
-  #     - name: rox_api_token
-  #       value: {{ include "app.fullname" . }}-pipeline-config
-  #     - name: rox_central_endpoint
-  #       value: {{ include "app.fullname" . }}-pipeline-config
-  #     - name: insecure-skip-tls-verify
-  #       value: true
-  #     runAfter:
-  #       - build-image
-  # ##------------------------------------------------------------------
-  # # notify on slack
-  # ##------------------------------------------------------------------
+    - name: image-scan
+      taskRef:
+        name: rhacs-image-scan
+        kind: Task
+      params:
+      - name: image
+        value: "image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}@$(tasks.build-image.results.IMAGE_DIGEST)"
+      - name: rox_api_token
+        value: {{ include "app.fullname" . }}-pipeline-config
+      - name: rox_central_endpoint
+        value: {{ include "app.fullname" . }}-pipeline-config
+      - name: output_format
+        value: table
+      - name: insecure-skip-tls-verify
+        value: true
+      runAfter:
+        - build-image
+    # - name: image-check
+    #   taskRef:
+    #     name: rhacs-image-check
+    #     kind: Task
+    #   params:
+    #   - name: image
+    #     value: "image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}@$(tasks.build-image.results.IMAGE_DIGEST)"
+    #   - name: rox_api_token
+    #     value: {{ include "app.fullname" . }}-pipeline-config
+    #   - name: rox_central_endpoint
+    #     value: {{ include "app.fullname" . }}-pipeline-config
+    #   - name: insecure-skip-tls-verify
+    #     value: true
+    #   runAfter:
+    #     - build-image
+  ##------------------------------------------------------------------
+  # notify on slack
+  ##------------------------------------------------------------------
   # finally:
   #   - name: notify-slack-test
   #     params:
@@ -163,13 +121,11 @@ spec:
   workspaces:
     - name: source
       optional: false
-    - name: maven-settings
-      optional: false
   ##------------------------------------------------------------------
   # Parameters definitions
   ##------------------------------------------------------------------
   params:
-    - default: 1.0.0-SNAPSHOT
+    - default: {{ .Chart.AppVersion }}
       description: The version of the application
       name: appversion
       type: string
