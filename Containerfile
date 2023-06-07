@@ -1,4 +1,4 @@
-FROM image-registry.openshift-image-registry.svc:5000/octo-happiness/developer-image:latest
+FROM developer-image:latest
 
 RUN curl -fsSL "https://get.sdkman.io" | bash \
     && bash -c ". /home/user/.sdkman/bin/sdkman-init.sh \
