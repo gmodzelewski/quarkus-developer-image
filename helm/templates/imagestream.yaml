@@ -9,7 +9,7 @@ spec:
   - name: latest
     from:
       kind: DockerImage
-      name: quay.io/devfile/base-developer-image:ubi9-latest
+      name: quay.io/devfile/universal-developer-image:ubi9-latest
       # quay.io/devfile/base-developer-image:ubi9-latest
       # quay.io/devfile/universal-developer-image:ubi9-latest
     referencePolicy:
