@@ -41,7 +41,7 @@ spec:
       params:
         - name: IMAGE
           value: >-
-            image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}:$(params.appversion)
+             quay.io/modzelewski/quarkus-developer-image:$(params.appversion)
         - name: BUILDER_IMAGE
           value: >-
             quay.io/buildah/stable:latest
