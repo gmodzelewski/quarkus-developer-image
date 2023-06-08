@@ -32,9 +32,8 @@ spec:
             value: $(tt.params.git-pusher-name)
           - name: git-commit-message
             value: $(tt.params.git-commit-message)
-          - name: IMAGE
-            value: >-
-              quay.io/modzelewski/quarkus-developer-image:$(tt.params.git-revision)
+          - name: appversion
+            value: $(tt.params.git-revision)
         pipelineRef:
           name: {{ include "app.fullname" . }}-build
         serviceAccountName: pipeline
