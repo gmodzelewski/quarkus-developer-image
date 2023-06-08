@@ -1,8 +1,8 @@
-FROM quay.io/devfile/universal-developer-image:ubi9-latest
+FROM quay.io/devfile/universal-developer-image:latest
 # Some options:
 # quay.io/devfile/base-developer-image:ubi9-latest
 # quay.io/devfile/universal-developer-image:latest
-# quay.io/devfile/universal-developer-image:ubi9-latest
+# quay.io/devfile/universal-developer-image:ubi8-latest
 
 RUN curl -fsSL "https://get.sdkman.io" | bash \
     && bash -c ". /home/user/.sdkman/bin/sdkman-init.sh \
