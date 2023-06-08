@@ -5,11 +5,11 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
-    eventlistener: {{ include "app.fullname" . }}-el
+    eventlistener: {{ include "app.fullname" . }}
 spec:
   to:
     kind: Service
-    name: {{ include "app.fullname" . }}-el
+    name: el-{{ include "app.fullname" . }}
     weight: 100
   port:
     targetPort: http-listener
