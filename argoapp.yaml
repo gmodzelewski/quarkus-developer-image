@@ -8,7 +8,7 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   source:
-    path: argo/deployment
+    path: helm
     repoURL: https://github.com/gmodzelewski/quarkus-developer-image
     targetRevision: HEAD
   project: default

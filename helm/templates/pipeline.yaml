@@ -63,47 +63,10 @@ spec:
         kind: ClusterTask
         name: buildah
       runAfter:
-        # - package
         - git-clone
       workspaces:
         - name: source
           workspace: source
-    ##------------------------------------------------------------------
-    # rhacs checks
-    ##------------------------------------------------------------------
-    # - name: image-scan
-    #   taskRef:
-    #     name: rhacs-image-scan
-    #     kind: Task
-    #   params:
-    #   - name: image
-    # TODO -> wrong image reference -> I write to quay
-    #     value: "image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}@$(tasks.build-image.results.IMAGE_DIGEST)"
-    #   - name: rox_api_token
-    #     value: {{ include "app.fullname" . }}-pipeline-config
-    #   - name: rox_central_endpoint
-    #     value: {{ include "app.fullname" . }}-pipeline-config
-    #   - name: output_format
-    #     value: table
-    #   - name: insecure-skip-tls-verify
-    #     value: true
-    #   runAfter:
-    #     - build-image
-    # - name: image-check
-    #   taskRef:
-    #     name: rhacs-image-check
-    #     kind: Task
-    #   params:
-    #   - name: image
-    #     value: "image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/{{ include "app.fullname" . }}@$(tasks.build-image.results.IMAGE_DIGEST)"
-    #   - name: rox_api_token
-    #     value: {{ include "app.fullname" . }}-pipeline-config
-    #   - name: rox_central_endpoint
-    #     value: {{ include "app.fullname" . }}-pipeline-config
-    #   - name: insecure-skip-tls-verify
-    #     value: true
-    #   runAfter:
-    #     - build-image
   ##------------------------------------------------------------------
   # notify on slack
   ##------------------------------------------------------------------
