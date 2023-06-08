@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quarkus-developer-image
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    path: argo/deployment
+    repoURL: https://github.com/gmodzelewski/quarkus-developer-image
+    targetRevision: HEAD
+  project: default
+  ignore:
+    resources:
+      - group: tekton.dev
+        kind: PipelineRun
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
