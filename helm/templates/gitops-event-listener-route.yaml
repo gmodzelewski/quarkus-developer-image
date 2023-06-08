@@ -13,4 +13,6 @@ spec:
     weight: 100
   port:
     targetPort: http-listener
+  tls:
+    termination: edge
   wildcardPolicy: None
