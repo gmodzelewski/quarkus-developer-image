@@ -9,7 +9,7 @@ metadata:
 spec:
   pipelineRef:
     name: {{ include "app.fullname" . }}-build
-  serviceAccountName: pipeline-sa
+  serviceAccountName: pipeline
   timeout: 1h0m0s
   params:
     - name: appversion
