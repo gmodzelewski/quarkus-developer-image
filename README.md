@@ -23,3 +23,4 @@ for crd in `kubectl get crds -oname | grep devworkspace | awk -F / '{ print $2 }
 
 TODO:
 - write a table what namespace needs what secret (quay push ns needs quay secret)
+- oc secret link pipeline quay-secret -> needednhere
