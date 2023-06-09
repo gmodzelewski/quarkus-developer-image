@@ -15,3 +15,8 @@ Image gets pushed to quay, so a user secret is needed.
    - go into your github project settings > WebHooks, add the url and set the content type to json
 7. `oc apply -f argoapp-yaml`
    - namespace name is devspaces-demo 
+
+
+bugfixing:
+delete multiple crds
+for crd in `kubectl get crds -oname | grep devworkspace | awk -F / '{ print $2 }'`; do oc delete crd $crd; done

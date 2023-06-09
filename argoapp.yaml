@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   destination:
-    namespace: {{ .Release.Namespace }}
+    namespace: devspaces-image
     server: https://kubernetes.default.svc
   source:
     path: helm
