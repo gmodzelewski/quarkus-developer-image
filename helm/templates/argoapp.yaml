@@ -16,6 +16,8 @@ spec:
     resources:
       - group: tekton.dev
         kind: PipelineRun
+      - group: argoproj.io/v1alpha1
+        kind: Application
   syncPolicy:
     automated:
       prune: true

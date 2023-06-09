@@ -1,6 +1,8 @@
 # quarkus-developer-image
 
 Used to describe the process of creating custom images in a cicd way for OpenShift Dev Spaces.
+Image gets pushed to quay, so a user secret is needed. 
+
 
 1. fork this project
 2. `oc create secret docker-registry quay-secret --docker-server=quay.io --docker-username=<your quay username> --docker-password=<generated cli password>`
