@@ -5,7 +5,7 @@ metadata:
 spec:
   namespaceSelector: {}
   resources: {}
-  serviceAccountName: pipeline
+  serviceAccountName: pipeline-sa
   triggers:
     - bindings:
         - kind: TriggerBinding

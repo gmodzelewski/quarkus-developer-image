@@ -36,7 +36,7 @@ spec:
             value: $(tt.params.git-revision)
         pipelineRef:
           name: {{ include "app.fullname" . }}-build
-        serviceAccountName: pipeline
+        serviceAccountName: pipeline-sa
         workspaces:
           - name: source
             persistentVolumeClaim:
