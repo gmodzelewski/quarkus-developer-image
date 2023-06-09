@@ -20,3 +20,6 @@ Image gets pushed to quay, so a user secret is needed.
 bugfixing:
 delete multiple crds
 for crd in `kubectl get crds -oname | grep devworkspace | awk -F / '{ print $2 }'`; do oc delete crd $crd; done
+
+TODO:
+- write a table what namespace needs what secret (quay push ns needs quay secret)
