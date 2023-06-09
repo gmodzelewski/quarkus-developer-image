@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: octo-happiness
+    namespace: devspaces-image
     server: https://kubernetes.default.svc
   source:
     path: helm

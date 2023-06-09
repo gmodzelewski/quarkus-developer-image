@@ -8,3 +8,4 @@ Used to describe the process of creating custom images in a cicd way for OpenShi
    - get the route of the event listener
    - go into your github project settings > WebHooks, add the url and set the content type to json
 4. `oc apply -f argoapp-yaml`
+   - namesapce name is devspaces-demo 
