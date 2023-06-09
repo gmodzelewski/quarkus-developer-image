@@ -6,6 +6,8 @@ metadata:
     tekton.dev/pipeline: {{ include "app.fullname" . }}-build
     app.kubernetes.io/name: {{ include "app.fullname" . }}
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   pipelineRef:
     name: {{ include "app.fullname" . }}-build
