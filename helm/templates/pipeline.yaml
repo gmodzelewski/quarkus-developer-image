@@ -3,7 +3,6 @@ kind: Pipeline
 metadata:
   name: {{ include "app.fullname" . }}-build
 spec:
-  resources: []
   tasks:
     ##------------------------------------------------------------------
     # Git clone task
