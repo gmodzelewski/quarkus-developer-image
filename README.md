@@ -32,3 +32,4 @@ TODO:
 - write a table what namespace needs what secret (quay push ns needs quay secret)
 - oc secret link pipeline quay-secret
 - clean readmes
+- add github and quay secret here
