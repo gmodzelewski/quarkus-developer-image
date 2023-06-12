@@ -21,11 +21,14 @@ bugfixing:
 delete multiple crds
 for crd in `kubectl get crds -oname | grep devworkspace | awk -F / '{ print $2 }'`; do oc delete crd $crd; done
 
-TODO:
-- write a table what namespace needs what secret (quay push ns needs quay secret)
-- oc secret link pipeline quay-secret -> needednhere
-
 ```sh
 oc adm policy add-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller -n devspaces-de
 mo
 ```
+
+
+
+TODO:
+- write a table what namespace needs what secret (quay push ns needs quay secret)
+- oc secret link pipeline quay-secret
+- clean readmes
