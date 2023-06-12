@@ -2,6 +2,8 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: {{ include "app.fullname" . }}-build
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
   tasks:
     ##------------------------------------------------------------------
@@ -93,5 +95,3 @@ spec:
       description: The version of the application
       name: appversion
       type: string
-  resources: []
-  
