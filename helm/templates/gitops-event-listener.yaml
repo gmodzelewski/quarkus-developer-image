@@ -2,6 +2,8 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: {{ include "app.fullname" . }}
+  annotations:
+    app.openshift.io/vcs-uri: {{ coalesce .Values.gitUrl "https://github.com/gmodzelewski/quarkus-developer-image" }}
 spec:
   namespaceSelector: {}
   resources: {}
