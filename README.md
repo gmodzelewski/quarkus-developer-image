@@ -1,3 +1,7 @@
+[Contribute via OpenShift Dev Spaces](https://devspaces.apps.ocp.ocp-gm.de/#https://github.com/gmodzelewski/quarkus-developer-image)
+
+[Contribute via OpenShift Dev Spaces via intellij-ce](https://devspaces.apps.ocp.ocp-gm.de/#https://github.com/gmodzelewski/quarkus-developer-image?new&che-editor=che-incubator/che-idea/latest)
+
 # quarkus-developer-image
 
 Used to describe the process of creating custom images in a cicd way for OpenShift Dev Spaces.
