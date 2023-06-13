@@ -9,7 +9,7 @@ Image gets pushed to quay, so a user secret is needed.
 
 ## Prerequisites
 
-Assuming you are using this project as a part of the (devspaces-demo project)[https://github.com/gmodzelewski/devspaces-demo], you will have the steps described in the Readme there already completed.
+Assuming you are using this project as a part of the [devspaces-demo project](https://github.com/gmodzelewski/devspaces-demo), you will have the steps described in the Readme there already completed.
 You will need to create the quay.io secret in the devspaces-image namespace as well.
 
 ```sh
