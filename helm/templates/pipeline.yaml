@@ -19,7 +19,7 @@ spec:
     - name: git-clone
       params:
         - name: url
-          value: "{{ include "app.git" . }}"
+          value: $(params.git-url)
         - name: revision
           value: main
         - name: submodules
@@ -49,8 +49,7 @@ spec:
     - name: build-image
       params:
         - name: IMAGE
-          value: >-
-             quay.io/modzelewski/quarkus-developer-image:$(params.appversion)
+          value: $(params.IMAGE):$(params.TAG)
         - name: BUILDER_IMAGE
           value: >-
             quay.io/buildah/stable:latest
@@ -98,7 +97,13 @@ spec:
   # Parameters definitions
   ##------------------------------------------------------------------
   params:
-    - default: {{ .Chart.AppVersion }}
-      description: The version of the application
-      name: appversion
+    - description: url of the git repo for the code of deployment
+      name: git-url
       type: string
+    - description: image to be built from the code
+      name: IMAGE
+      type: string
+    - description: image tag to be set
+      name: TAG
+      type: string
+      default: latest

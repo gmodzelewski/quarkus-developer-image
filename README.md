@@ -1,35 +1,52 @@
 # quarkus-developer-image
 
 Used to describe the process of creating custom images in a cicd way for OpenShift Dev Spaces.
-Image gets pushed to quay, so a user secret is needed. 
+Image gets pushed to quay, so a user secret is needed.
 
+## Prerequisites
 
-1. fork this project
-2. `oc create secret docker-registry quay-secret --docker-server=quay.io --docker-username=<your quay username> --docker-password=<generated cli password>`
-   - navigate to quay user settings, generate CLI Password at the top
-3. `oc secret link pipeline quay-secret`
-4. `oc secret link pipeline github-oauth-config`
-5. `helm upgrade -i quarkus-developer-image helm`
-6. `oc get route quarkus-developer-image-el-route -o go-template='{{.spec.host}}'`
-   - get the route of the event listener
-   - go into your github project settings > WebHooks, add the url and set the content type to json
-7. `oc apply -f argoapp-yaml`
-   - namespace name is devspaces-demo 
-
-
-bugfixing:
-delete multiple crds
-for crd in `kubectl get crds -oname | grep devworkspace | awk -F / '{ print $2 }'`; do oc delete crd $crd; done
+Assuming you are using this project as a part of the (devspaces-demo project)[https://github.com/gmodzelewski/devspaces-demo], you will have the steps described in the Readme there already completed.
+You will need to create the quay.io secret in the devspaces-image namespace as well.
 
 ```sh
-oc adm policy add-role-to-user admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller -n devspaces-de
-mo
+oc project devspaces-image
+
+oc get secret quay-secret -o json \
+| jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' \
+| oc apply -n devspaces-demo -f -
+
+oc secret link pipeline quay-secret
 ```
 
+## Custom (Quarkus Developer) Image
 
+This project shows a full circle for a workspace environment with connected pipelines and gitops. To deploy (and after you have completed the prerequisites), configure the `argoapp.yaml` file and apply it in your namespace via:
+```sh
+oc apply -f argoapp.yaml
+```
 
-TODO:
-- write a table what namespace needs what secret (quay push ns needs quay secret)
-- oc secret link pipeline quay-secret
-- clean readmes
-- add github and quay secret here
+### Use this project on your own
+
+To use this project on your own you'll have to do these steps:
+1. Fork this project
+2. Create the devspaces-image repository in quay.io
+3. Set your git and quay repo urls in the `helm/values.yaml` file
+4. Set your git repo url in the `argoapp.yaml` file
+5. Commit everything
+6. Apply the argo app via `oc apply -f argoapp.yaml`
+7. In the browser, navigate in your forked github devspaces-image project to the settings page and open your webhooks
+8. Copy your pipeline event listener url via `oc get route quarkus-developer-image-el-route -n devspaces-image -o go-template='{{.spec.host}}'`
+9.  Create a webhook, paste the pipeline and set the content type to json
+10. Open your Dev Spaces project, for example via link: [https://devspaces.apps.ocp.ocp-gm.de/#https://github.com/gmodzelewski/quarkus-developer-image]
+11. Start coding cool stuff
+
+### Bugfixing:
+
+#### PVC stuck - delete pvc
+
+The pvcs are configured to be not deleted at helm uninstall. You should always delete them manually.
+
+If some pvc gets stuck you can fix this via
+```sh
+oc patch pvc <pvc-name> -p '{"metadata":{"finalizers": []}}' --type=merge
+```

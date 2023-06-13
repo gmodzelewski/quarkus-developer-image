@@ -14,8 +14,12 @@ spec:
   serviceAccountName: pipeline
   timeout: 1h0m0s
   params:
-    - name: appversion
-      value: {{ coalesce .Values.imageVersion .Chart.AppVersion }}
+    - name: git-url
+      value: {{ coalesce .Values.gitUrl "https://github.com/gmodzelewski/devspaces-demo" }}
+    - name: IMAGE
+      value: {{ coalesce .Values.repoUrl "quay.io/modzelewski/quarkus-developer-image" }}
+    - name: TAG
+      value: {{ coalesce .Values.repoTAG "1.0.0" }}
   workspaces:
     - name: source
       persistentVolumeClaim:
